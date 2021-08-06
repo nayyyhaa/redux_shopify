@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import { selectedProduct } from '../redux/actions/productActions';
+import { selectedProduct, removeSelectedProduct } from '../redux/actions/productActions';
 
 const SelectedProduct = () => {
   const dispatch = useDispatch();
   const { productId } = useParams();
-  let product = useSelector((state) => state.product);
+  let product = useSelector((state) => state.selectedProduct);
   const { image, title, price, category, description } = product;
 
   const fetchProduct = async (id) => {
@@ -17,10 +17,17 @@ const SelectedProduct = () => {
   }
 
   useEffect(() => {
-    fetchProduct(productId);
+    if(productId && productId!=="") fetchProduct(productId);
+    return(() => {
+      dispatch(removeSelectedProduct());
+    })
   },[productId])
 
   return (
+    <div className="ui grid container">
+      {Object.keys(product).length === 0 ? (
+        <div>...Loading</div>
+      ) : (
         <div className="ui placeholder segment">
           <div className="ui two column stackable center aligned grid">
             <div className="ui vertical divider">AND</div>
@@ -45,6 +52,8 @@ const SelectedProduct = () => {
             </div>
           </div>
         </div>
+      )}
+    </div>
   );
 };
 

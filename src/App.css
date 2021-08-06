@@ -17,6 +17,11 @@
   width: auto;
 }
 
+.ui.fluid.image {
+  max-width: 25rem !important;
+  margin: auto;
+}
+
 .ui.cards>.card>.content>.header {
   height: 48px;
   overflow: hidden;

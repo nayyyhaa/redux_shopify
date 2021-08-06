@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const AllProducts = () => {
   /* use that stored value */
-  const products = useSelector((state) => state.allProduct.product);
+  const products = useSelector((state) => state.allProduct.products);
 
   const renderProducts = products.map((product) => {
     const { id, title, image, price, category } = product;
